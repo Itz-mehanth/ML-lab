@@ -1,0 +1,262 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{multicol}
+\usepackage{longtable}
+\usepackage{titlesec}
+
+\begin{document}
+
+%==================================================
+\begin{center}
+    \large \textbf{Sri Sivasubramaniya Nadar College of Engineering, Chennai} \\
+    (An autonomous Institution affiliated to Anna University) \\
+    \vspace{0.3cm}
+\end{center}
+
+\begin{table}[!h]
+\renewcommand{\arraystretch}{1.5}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|cll|}
+\hline
+Degree \& Branch & \multicolumn{1}{c|}{B.E. Computer Science \& Engineering} & Semester & VI \\ \hline
+Subject Code \& Name & \multicolumn{3}{c|}{UCS2612 -- Machine Learning Algorithms Laboratory} \\ \hline
+Academic Year & \multicolumn{1}{c|}{2025--2026 (Even)} & Batch & 2023--2027 \\ \hline
+Due Date & \multicolumn{3}{c|}{\textbf{}} \\ \hline
+\end{tabular}
+}
+\end{table}
+
+\begin{center}
+\textbf{Experiment 2: Binary Classification using Na\"ive Bayes and K-Nearest Neighbors}
+\end{center}
+
+%==================================================
+\section*{Objective}
+To implement Na\"ive Bayes and K-Nearest Neighbors (KNN) classifiers for a binary classification problem, evaluate them using multiple performance metrics, visualize model behavior, and analyze overfitting, underfitting, and bias--variance characteristics.
+
+%==================================================
+\section*{Dataset}
+A benchmark binary classification dataset containing numerical features and two class labels is used.
+
+Dataset reference:
+\begin{itemize}
+    \item Kaggle: \href{https://www.kaggle.com/datasets/somesh24/spambase}{Spambase Dataset}
+\end{itemize}
+
+%==================================================
+\section*{Brief Theory (For Lab Understanding)}
+
+\subsection*{Na\"ive Bayes}
+Na\"ive Bayes is a probabilistic classifier that works well for high-dimensional data.
+It is fast, simple to implement, and assumes independence among features.
+Different variants handle different types of input data.
+
+\subsection*{K-Nearest Neighbors (KNN)}
+KNN is an instance-based learning algorithm that classifies samples based on similarity.
+The choice of the number of neighbors ($k$) strongly influences performance.
+Feature scaling is important for distance-based methods like KNN.
+
+\subsection*{Neighbor Search Methods}
+KDTree and BallTree are used to speed up nearest neighbor searches.
+They mainly affect computation time and memory usage, not classification accuracy.
+
+\subsection*{Hyperparameter Tuning}
+Hyperparameter tuning helps identify the best model settings using validation data.
+Grid Search and Randomized Search are commonly used approaches.
+
+%==================================================
+\section*{Task Description}
+Students must:
+\begin{itemize}
+    \item Implement Na\"ive Bayes and KNN classifiers
+    \item Tune KNN hyperparameters using GridSearchCV or RandomizedSearchCV
+    \item Compare KDTree and BallTree search strategies
+    \item Visualize results during execution
+    \item Analyze model behavior using bias--variance concepts
+\end{itemize}
+
+%==================================================
+\section*{Implementation Steps}
+\begin{enumerate}[label=\arabic*.]
+    \item Load the dataset
+    \item Perform data preprocessing (handling missing values and scaling)
+    \item Perform Exploratory Data Analysis (EDA)
+    \item Visualize class distribution and feature behavior
+    \item Split the dataset into training and testing sets
+    \item Train Na\"ive Bayes variants
+    \item Train a baseline KNN classifier
+    \item Perform hyperparameter tuning for KNN using 5-Fold Cross-Validation
+    \item Train optimized KNN models using KDTree and BallTree
+    \item Evaluate all models using multiple metrics
+\end{enumerate}
+
+%==================================================
+\section*{Required Visualizations (During Coding)}
+Students must generate and include:
+\begin{itemize}
+    \item Class distribution plot
+    \item Feature distribution plots
+    \item Confusion matrix for each classifier
+    \item ROC curve for each classifier
+    \item Accuracy vs. $k$ plot for KNN
+    \item Training vs. validation accuracy plot
+\end{itemize}
+
+%==================================================
+\section*{Performance Metrics to be Reported}
+\begin{itemize}
+    \item Accuracy
+    \item Precision
+    \item Recall
+    \item F1 Score
+    \item Specificity
+    \item False Positive Rate
+    \item Training Time
+    \item Prediction Time
+\end{itemize}
+
+%==================================================
+\section*{Na\"ive Bayes Performance Comparison}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\caption{Na\"ive Bayes Performance Metrics}
+\begin{tabular}{|l|c|c|c|}
+\hline
+Metric & Gaussian NB & Multinomial NB & Bernoulli NB \\
+\hline
+Accuracy &  &  &  \\
+Precision &  &  &  \\
+Recall &  &  &  \\
+F1 Score &  &  &  \\
+Specificity &  &  &  \\
+Training Time (s) &  &  &  \\
+\hline
+\end{tabular}
+\end{table}
+
+%==================================================
+\section*{KNN Hyperparameter Tuning Results}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\caption{KNN Hyperparameter Tuning}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Search Method & Best $k$ & Best CV Accuracy & Best Parameters \\
+\hline
+Grid Search &  &  &  \\
+Randomized Search &  &  &  \\
+\hline
+\end{tabular}
+\end{table}
+
+%==================================================
+\section*{KNN Performance using Different Search Methods}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\caption{KNN Performance using KDTree}
+\begin{tabular}{|l|c|}
+\hline
+Metric & Value \\
+\hline
+Optimal $k$ &  \\
+Accuracy &  \\
+Precision &  \\
+Recall &  \\
+F1 Score &  \\
+Training Time (s) &  \\
+Prediction Time (s) &  \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\caption{KNN Performance using BallTree}
+\begin{tabular}{|l|c|}
+\hline
+Metric & Value \\
+\hline
+Optimal $k$ &  \\
+Accuracy &  \\
+Precision &  \\
+Recall &  \\
+F1 Score &  \\
+Training Time (s) &  \\
+Prediction Time (s) &  \\
+\hline
+\end{tabular}
+\end{table}
+
+%==================================================
+\section*{KDTree vs BallTree Comparison}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\caption{Comparison of Neighbor Search Algorithms}
+\begin{tabular}{|l|c|c|}
+\hline
+Criterion & KDTree & BallTree \\
+\hline
+Accuracy &  &  \\
+Training Time (s) &  &  \\
+Prediction Time (s) &  &  \\
+Memory Usage & Low / Medium & Medium / High \\
+\hline
+\end{tabular}
+\end{table}
+
+%==================================================
+\section*{Overfitting and Underfitting Analysis}
+Students must discuss:
+\begin{itemize}
+    \item Difference between training and validation accuracy
+    \item Effect of small and large values of $k$
+    \item Role of hyperparameter tuning in generalization
+\end{itemize}
+
+%==================================================
+\section*{Bias--Variance Analysis}
+Students must comment on:
+\begin{itemize}
+    \item Bias behavior of Na\"ive Bayes
+    \item Variance behavior of KNN
+    \item Effect of tuning on bias--variance trade-off
+\end{itemize}
+
+%==================================================
+\section*{Conclusion}
+Summarize the performance of both classifiers, justify the choice of optimal parameters, and comment on computational efficiency and generalization behavior.
+
+%==================================================
+\section*{Report Format (Mandatory)}
+\begin{enumerate}
+    \item Aim and Objective
+    \item Dataset Description
+    \item Preprocessing Steps
+    \item Implementation Details
+    \item Visualizations
+    \item Performance Tables
+    \item Overfitting and Underfitting Analysis
+    \item Bias--Variance Analysis
+    \item Observations and Conclusion
+\end{enumerate}
+
+%==================================================
+\section*{References}
+\begin{itemize}
+    \item \href{https://scikit-learn.org/stable/modules/naive_bayes.html}{Scikit-learn: Na\"ive Bayes}
+    \item \href{https://scikit-learn.org/stable/modules/neighbors.html}{Scikit-learn: KNN}
+    \item \href{https://scikit-learn.org/stable/modules/grid_search.html}{Scikit-learn: Hyperparameter Optimization}
+    \item \href{https://www.kaggle.com/datasets/somesh24/spambase}{Spambase Dataset}
+\end{itemize}
+
+\end{document}

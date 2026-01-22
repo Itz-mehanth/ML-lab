@@ -1,0 +1,130 @@
+Saved: target_distribution
+Saved: correlation_heatmap
+--- Linear Regression ---
+MAE: 21588.53
+RMSE: 31925.14
+R2 Score: 0.5510
+Time: 0.0538s
+--- Ridge ---
+MAE: 21582.76
+RMSE: 31922.66
+R2 Score: 0.5510
+Time: 0.0149s
+--- Lasso ---
+MAE: 21574.20
+RMSE: 31919.43
+R2 Score: 0.5511
+Time: 9.0893s
+--- Elastic Net ---
+MAE: 23038.22
+RMSE: 32656.47
+R2 Score: 0.5302
+Time: 0.1530s
+Best Ridge: {'alpha': 100} Score: 0.5847708967980514
+Best Lasso: {'alpha': 10} Score: 0.5840106459425833
+Best ElasticNet: {'alpha': 0.1, 'l1_ratio': 0.8} Score: 0.5872102663374708
+--- Ridge Tuned ---
+MAE: 21582.04
+RMSE: 31897.55
+R2 Score: 0.5517
+Time: 0.0139s
+--- Lasso Tuned ---
+MAE: 21564.42
+RMSE: 31905.16
+R2 Score: 0.5515
+Time: 0.9128s
+--- ElasticNet Tuned ---
+MAE: 21642.32
+RMSE: 31882.63
+R2 Score: 0.5522
+Time: 1.9570s
+Saved: predicted_vs_actual
+Saved: residual_plot
+Saved: coefficients_comparison
+
+Top Coefficients:
+                                        Linear  ...    ElasticNet
+Loan Amount Request (USD)         35357.491163  ...  29622.789115
+Income (USD)                      34525.040585  ...    176.988057
+Property Age                     -34464.710463  ...   -122.043431
+Profession_Student               -12974.689299  ...    -20.332700
+Profession_Businessman            12532.982764  ...     25.845386
+Credit Score                      11645.435916  ...  11529.827547
+Profession_Pensioner               6626.968567  ...    889.251018
+Type of Employment_Realty agents   6353.602932  ...    723.482020
+Income Stability_High             -4819.179272  ...  -1257.386453
+Type of Employment_IT staff       -5647.484904  ...   -623.763393
+
+[10 rows x 4 columns]
+Saved: learning_curve_Linear_Regression
+Saved: learning_curve_Ridge_Regression
+Saved: target_distribution
+Saved: correlation_heatmap
+--- Linear Regression ---
+MAE: 21588.53
+RMSE: 31925.14
+R2 Score: 0.5510
+Time: 0.0857s
+--- Ridge ---
+MAE: 21582.76
+RMSE: 31922.66
+R2 Score: 0.5510
+Time: 0.0292s
+--- Lasso ---
+MAE: 21574.20
+RMSE: 31919.43
+R2 Score: 0.5511
+Time: 9.4613s
+--- Elastic Net ---
+MAE: 23038.22
+RMSE: 32656.47
+R2 Score: 0.5302
+Time: 0.1760s
+Best Ridge: {'alpha': 100} Score: 0.5847708967980514
+Best Lasso: {'alpha': 10} Score: 0.5840106459425833
+Best ElasticNet: {'alpha': 0.1, 'l1_ratio': 0.8} Score: 0.5872102663374708
+--- Ridge Tuned ---
+MAE: 21582.04
+RMSE: 31897.55
+R2 Score: 0.5517
+Time: 0.0215s
+--- Lasso Tuned ---
+MAE: 21564.42
+RMSE: 31905.16
+R2 Score: 0.5515
+Time: 1.0398s
+--- ElasticNet Tuned ---
+MAE: 21642.32
+RMSE: 31882.63
+R2 Score: 0.5522
+Time: 1.9514s
+Saved: predicted_vs_actual
+Saved: residual_plot
+Saved: coefficients_comparison
+
+Top Coefficients:
+                                        Linear         Ridge         Lasso  \
+Loan Amount Request (USD)         35357.491163  33817.779499  35161.969919   
+Income (USD)                      34525.040585    727.913653     51.141880   
+Property Age                     -34464.710463   -671.410532      0.000000   
+Profession_Student               -12974.689299   -123.323516      0.000000   
+Profession_Businessman            12532.982764    129.432831      0.000000   
+Credit Score                      11645.435916  11630.499591  11657.066495   
+Profession_Pensioner               6626.968567   3034.539078   4491.639502   
+Type of Employment_Realty agents   6353.602932   2422.819029   2494.205608   
+Income Stability_High             -4819.179272  -2798.027900  -6322.853554   
+Type of Employment_IT staff       -5647.484904  -2099.042979  -1677.673846   
+
+                                    ElasticNet  
+Loan Amount Request (USD)         29622.789115  
+Income (USD)                        176.988057  
+Property Age                       -122.043431  
+Profession_Student                  -20.332700  
+Profession_Businessman               25.845386  
+Credit Score                      11529.827547  
+Profession_Pensioner                889.251018  
+Type of Employment_Realty agents    723.482020  
+Income Stability_High             -1257.386453  
+Type of Employment_IT staff        -623.763393  
+Saved: learning_curve_Linear_Regression
+Saved: learning_curve_Ridge_Regression
