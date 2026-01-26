@@ -1,0 +1,272 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{multicol}
+\usepackage{longtable}
+\usepackage{titlesec}
+\usepackage{amsmath}
+
+\begin{document}
+
+%==================================================
+\begin{center}
+    \large \textbf{Sri Sivasubramaniya Nadar College of Engineering, Chennai} \\
+    (An Autonomous Institution Affiliated to Anna University) \\
+    \vspace{0.3cm}
+\end{center}
+
+\begin{table}[!h]
+\renewcommand{\arraystretch}{1.5}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|cll|}
+\hline
+Degree \& Branch & \multicolumn{1}{c|}{B.E. Computer Science \& Engineering} & Semester & VI \\ \hline
+Subject Code \& Name & \multicolumn{3}{c|}{UCS2612 -- Machine Learning Algorithms Laboratory} \\ \hline
+Academic Year & 2025--2026 (Even) & Batch & 2023--2027 \\ \hline
+\end{tabular}
+}
+\end{table}
+
+\begin{center}
+\textbf{Experiment 4: Binary Classification using Linear and Kernel-Based Models}
+\end{center}
+
+%==================================================
+\section*{Objective}
+To classify emails as spam or ham using Logistic Regression and Support Vector Machine (SVM) classifiers and to analyze the effect of hyperparameter tuning on classification performance.
+
+%==================================================
+\section*{Dataset}
+The \textbf{Spambase} dataset contains numerical features extracted from email content and a binary label indicating spam or non-spam (ham).
+
+\textbf{Dataset Links (for reference):}
+\begin{itemize}
+    \item Kaggle: \href{https://www.kaggle.com/datasets/somesh24/spambase}{https://www.kaggle.com/datasets/somesh24/spambase}
+\end{itemize}
+
+%==================================================
+\section*{Theory Background}
+
+\subsection*{1. Logistic Regression}
+Logistic Regression is a probabilistic classification algorithm used for binary classification problems.  
+It models the probability that a sample belongs to a particular class using the sigmoid function:
+
+\[
+P(y=1|\mathbf{x}) = \frac{1}{1 + e^{-(\mathbf{w}^T\mathbf{x} + b)}}
+\]
+
+A threshold (usually 0.5) is applied to convert probability into class labels.
+
+\textbf{Loss Function:}  
+Logistic Regression minimizes the \textbf{log-loss (cross-entropy loss)}, which penalizes incorrect predictions.
+
+\subsection*{Regularization in Logistic Regression}
+Regularization prevents overfitting by adding a penalty to large coefficients.
+
+\begin{itemize}
+    \item \textbf{L1 Regularization (Lasso):}  
+    Encourages sparsity by shrinking some coefficients exactly to zero.  
+    Useful for feature selection.
+    
+    \item \textbf{L2 Regularization (Ridge):}  
+    Penalizes large weights but keeps all features.  
+    Improves model generalization.
+\end{itemize}
+
+\subsection*{Logistic Regression Hyperparameters}
+\begin{itemize}
+    \item \textbf{C (Inverse Regularization Strength):}  
+    Controls the trade-off between model complexity and regularization.
+    \begin{itemize}
+        \item Small $C$: Strong regularization, simpler model
+        \item Large $C$: Weak regularization, complex model
+    \end{itemize}
+
+    \item \textbf{Solver:}
+    \begin{itemize}
+        \item \texttt{liblinear}: Suitable for small datasets; supports L1 and L2
+        \item \texttt{saga}: Efficient for large datasets; supports L1 and L2
+    \end{itemize}
+\end{itemize}
+
+%--------------------------------------------------
+\subsection*{2. Support Vector Machine (SVM)}
+Support Vector Machine is a margin-based classifier that finds an optimal hyperplane separating two classes by maximizing the margin between them.
+
+\textbf{Key Idea:}  
+Only a subset of training points (support vectors) define the decision boundary.
+
+\subsection*{SVM Kernels}
+\begin{itemize}
+    \item \textbf{Linear Kernel}: Suitable for linearly separable data
+    \item \textbf{Polynomial Kernel}: Captures polynomial relationships
+    \item \textbf{RBF Kernel}: Handles complex, non-linear boundaries
+    \item \textbf{Sigmoid Kernel}: Similar to neural network activation
+\end{itemize}
+
+\subsection*{SVM Hyperparameters}
+\begin{itemize}
+    \item \textbf{C}: Controls margin vs misclassification
+    \begin{itemize}
+        \item Small $C$: Wider margin, higher bias
+        \item Large $C$: Narrow margin, lower bias
+    \end{itemize}
+    \item \textbf{$\gamma$}: Controls influence of a single training point
+\end{itemize}
+
+%==================================================
+\section*{Hyperparameter Tuning}
+
+\subsection*{Grid Search}
+Grid Search exhaustively evaluates all combinations of predefined hyperparameters using cross-validation.
+
+\subsection*{Randomized Search}
+Randomized Search evaluates randomly sampled hyperparameter combinations and is computationally efficient.
+
+\textbf{Note:} Students may use either method. If both are used, results must be compared.
+
+%==================================================
+\section*{Implementation Steps}
+\begin{enumerate}[label=\arabic*.]
+    \item Load the dataset.
+    \item Preprocess the data:
+    \begin{itemize}
+        \item Handle missing values
+        \item Standardize features
+    \end{itemize}
+    \item Perform Exploratory Data Analysis (EDA).
+    \item Split the dataset into training and testing sets.
+    \item Train baseline Logistic Regression.
+    \item Tune Logistic Regression hyperparameters.
+    \item Train SVM with different kernels.
+    \item Tune SVM hyperparameters.
+    \item Evaluate models using standard metrics.
+    \item Perform 5-Fold Cross-Validation.
+\end{enumerate}
+
+%==================================================
+\section*{Hyperparameter Search Space}
+
+\subsection*{Logistic Regression}
+\begin{itemize}
+    \item Regularization: L1, L2
+    \item $C \in \{0.01, 0.1, 1, 10, 100\}$
+    \item Solver: liblinear, saga
+\end{itemize}
+
+\subsection*{Support Vector Machine}
+\begin{itemize}
+    \item Kernel: Linear, Polynomial, RBF, Sigmoid
+    \item $C \in \{0.1, 1, 10, 100\}$
+    \item $\gamma \in \{\text{scale}, \text{auto}\}$
+    \item Degree (Polynomial): $\{2,3,4\}$
+\end{itemize}
+
+%==================================================
+\section*{Hyperparameter Tuning Results}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|c|c|c|}
+\hline
+Model & Search Method & Best Parameters & Best CV Accuracy \\ \hline
+Logistic Regression & Grid / Random &  &  \\
+SVM & Grid / Random &  &  \\ \hline
+\end{tabular}
+\end{table}
+
+%==================================================
+\section*{Logistic Regression Performance}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|c|}
+\hline
+Metric & Value \\ \hline
+Accuracy &  \\
+Precision &  \\
+Recall &  \\
+F1 Score &  \\
+Training Time (s) &  \\ \hline
+\end{tabular}
+\end{table}
+
+%==================================================
+\section*{SVM Kernel-wise Performance}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|c|c|c|}
+\hline
+Kernel & Accuracy & F1 Score & Training Time (s) \\ \hline
+Linear &  &  &  \\
+Polynomial &  &  &  \\
+RBF &  &  &  \\
+Sigmoid &  &  &  \\ \hline
+\end{tabular}
+\end{table}
+
+%==================================================
+\section*{K-Fold Cross-Validation Results (K = 5)}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|c|c|c|}
+\hline
+Fold & Logistic Regression & SVM \\ \hline
+Fold 1 &  &  \\
+Fold 2 &  &  \\
+Fold 3 &  &  \\
+Fold 4 &  &  \\
+Fold 5 &  &  \\ \hline
+Average &  &  \\ \hline
+\end{tabular}
+\end{table}
+
+%==================================================
+\section*{Comparative Analysis}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|c|c|}
+\hline
+Criterion & Logistic Regression & SVM \\ \hline
+Accuracy &  &  \\
+Model Complexity & Low & High \\
+Training Time & Low & High \\
+Interpretability & High & Low \\ \hline
+\end{tabular}
+\end{table}
+
+%==================================================
+\section*{Observations}
+\begin{itemize}
+    \item Identify the best-performing classifier.
+    \item Explain the impact of regularization.
+    \item Discuss kernel behavior in SVM.
+    \item Comment on bias--variance trade-off.
+\end{itemize}
+
+%==================================================
+\section*{Learning Outcomes}
+\begin{itemize}
+    \item Understand probabilistic and margin-based classifiers.
+    \item Apply hyperparameter tuning.
+    \item Evaluate classification models.
+    \item Interpret experimental results.
+\end{itemize}
+
+%==================================================
+\section*{References}
+\begin{itemize}
+    \item \href{https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression}{Scikit-learn: Logistic Regression}
+    \item \href{https://scikit-learn.org/stable/modules/svm.html}{Scikit-learn: Support Vector Machines}
+    \item \href{https://scikit-learn.org/stable/modules/grid_search.html}{Scikit-learn: Hyperparameter Optimization}
+    \item \href{https://www.kaggle.com/datasets/somesh24/spambase}{Spambase Dataset – Kaggle}
+    \item \href{https://archive.ics.uci.edu/ml/datasets/spambase}{UCI ML Repository – Spambase}
+\end{itemize}
+
+\end{document}
