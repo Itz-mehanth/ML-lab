@@ -1,0 +1,41 @@
+Dataset Shape: (4601, 58)
+Saved: class_distribution
+Saved: feature_correlation
+Best LR Parameters: {'C': 10, 'penalty': 'l1', 'solver': 'liblinear'}
+Best LR CV Accuracy: 0.9241847826086957
+
+SVM Kernel Results:
+    Kernel  Accuracy        F1      Time
+0   linear  0.929425  0.909344  0.418331
+1     poly  0.779587  0.621974  0.319160
+2      rbf  0.927253  0.905501  0.221511
+3  sigmoid  0.884908  0.852778  0.323997
+
+Best SVM Parameters: {'C': 10, 'gamma': 'scale', 'kernel': 'rbf'}
+Best SVM CV Accuracy: 0.9331521739130435
+
+--- Logistic Regression Evaluation ---
+Accuracy: 0.9262
+Precision: 0.9202
+Recall: 0.8898
+F1 Score: 0.9048
+Time: 0.0006s
+
+--- SVM Evaluation ---
+Accuracy: 0.9207
+Precision: 0.9143
+Recall: 0.8815
+F1 Score: 0.8976
+Time: 0.0691s
+
+K-Fold CV Results (K=5):
+Fold 1: LR=0.9402, SVM=0.9429
+Fold 2: LR=0.9185, SVM=0.9321
+Fold 3: LR=0.9158, SVM=0.9334
+Fold 4: LR=0.9198, SVM=0.9212
+Fold 5: LR=0.9253, SVM=0.9361
+Average: LR=0.9239, SVM=0.9332
+Saved: confusion_matrices
+Saved: roc_curve
+Saved: learning_curve_lr
+Saved: learning_curve_svc
