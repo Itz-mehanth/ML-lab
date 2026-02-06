@@ -3,6 +3,7 @@ venv/
 env/
 ENV/
 
+
 # Jupyter Notebook
 .ipynb_checkpoints/
 *.pyc
