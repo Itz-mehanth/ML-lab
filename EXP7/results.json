@@ -1,0 +1,116 @@
+{
+  "bag_results": [
+    {
+      "n_estimators": 10,
+      "max_samples": 0.8,
+      "avg_acc": 0.9473,
+      "avg_f1": 0.9571
+    },
+    {
+      "n_estimators": 50,
+      "max_samples": 0.8,
+      "avg_acc": 0.9495,
+      "avg_f1": 0.9593
+    },
+    {
+      "n_estimators": 100,
+      "max_samples": 1.0,
+      "avg_acc": 0.9516,
+      "avg_f1": 0.9609
+    }
+  ],
+  "ada_results": [
+    {
+      "n_estimators": 50,
+      "learning_rate": 0.5,
+      "avg_acc": 0.967,
+      "avg_f1": 0.9737
+    },
+    {
+      "n_estimators": 100,
+      "learning_rate": 1.0,
+      "avg_acc": 0.9802,
+      "avg_f1": 0.9844
+    },
+    {
+      "n_estimators": 200,
+      "learning_rate": 0.1,
+      "avg_acc": 0.9714,
+      "avg_f1": 0.9773
+    }
+  ],
+  "gb_results": [
+    {
+      "n_estimators": 100,
+      "learning_rate": 0.1,
+      "max_depth": 3,
+      "avg_acc": 0.9516,
+      "avg_f1": 0.9614
+    },
+    {
+      "n_estimators": 200,
+      "learning_rate": 0.05,
+      "max_depth": 3,
+      "avg_acc": 0.9604,
+      "avg_f1": 0.9684
+    },
+    {
+      "n_estimators": 100,
+      "learning_rate": 0.1,
+      "max_depth": 5,
+      "avg_acc": 0.9341,
+      "avg_f1": 0.947
+    }
+  ],
+  "stack_cv_acc": 0.9543,
+  "stack_cv_f1": 0.9664,
+  "best_bag": {
+    "n_estimators": 100,
+    "max_samples": 1.0,
+    "avg_acc": 0.9516,
+    "avg_f1": 0.9609
+  },
+  "best_ada": {
+    "n_estimators": 100,
+    "learning_rate": 1.0,
+    "avg_acc": 0.9802,
+    "avg_f1": 0.9844
+  },
+  "best_gb": {
+    "n_estimators": 200,
+    "learning_rate": 0.05,
+    "max_depth": 3,
+    "avg_acc": 0.9604,
+    "avg_f1": 0.9684
+  },
+  "final": {
+    "Bagging": [
+      0.9385964912280702,
+      0.9452054794520548,
+      0.9583333333333334,
+      0.9517241379310345,
+      0.9927248677248678
+    ],
+    "AdaBoost": [
+      0.956140350877193,
+      0.9466666666666667,
+      0.9861111111111112,
+      0.9659863945578231,
+      0.9818121693121693
+    ],
+    "GradBoost": [
+      0.956140350877193,
+      0.9466666666666667,
+      0.9861111111111112,
+      0.9659863945578231,
+      0.9910714285714286
+    ],
+    "Stacking": [
+      0.9736842105263158,
+      0.9726027397260274,
+      0.9861111111111112,
+      0.9793103448275862,
+      0.9937169312169313
+    ]
+  }
+}

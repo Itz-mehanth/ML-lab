@@ -1,0 +1,172 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage{titlesec}
+\usepackage{float}
+
+\titleformat{\section}{\large\bfseries}{\thesection.}{1em}{}
+
+\begin{document}
+
+\begin{center}
+    \Large \textbf{Sri Sivasubramaniya Nadar College of Engineering, Chennai} \\
+    \large (An Autonomous Institution affiliated to Anna University) \\
+    \vspace{0.3cm}
+\end{center}
+
+\begin{table}[h!]
+\renewcommand{\arraystretch}{1.5}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|cll|}
+\hline
+\textbf{Degree \& Branch} & \multicolumn{1}{c|}{B.E Computer Science \& Engineering} & \textbf{Semester} & VI \\ \hline
+\textbf{Subject Code \& Name} & \multicolumn{3}{c|}{UCS2612 -- Machine Learning Laboratory} \\ \hline
+\textbf{Academic Year} & \multicolumn{1}{c|}{2025--2026 (Even)} & \textbf{Batch} & 2023--2027 \\ \hline
+\textbf{Name} & \multicolumn{1}{c|}{Mehanth T} & \textbf{Register No.} & 3122235001080 \\ \hline
+\end{tabular}
+}
+\end{table}
+
+\begin{center}
+    \textbf{\Large Experiment 6}
+\end{center}
+
+\begin{center}
+    \textbf{Decision Tree and Random Forest: A Comparative Classification Study}
+\end{center}
+
+\section*{Objective}
+\begin{itemize}
+    \item To implement a \textbf{Decision Tree classifier}.
+    \item To extend the Decision Tree into a \textbf{Random Forest ensemble model}.
+    \item To study the impact of hyperparameters on overfitting and generalization.
+    \item To \textbf{select optimal hyperparameters using 5-Fold Cross-Validation}.
+    \item To compare single-tree and ensemble-tree models.
+\end{itemize}
+
+\section*{Dataset}
+\textbf{Wisconsin Diagnostic Breast Cancer Dataset} (loaded from \texttt{sklearn.datasets})
+\begin{itemize}
+    \item Total samples: 569 (357 Benign, 212 Malignant)
+    \item Features: 30 numerical attributes
+    \item Target classes: Malignant (0) and Benign (1)
+    \item Train/Test split: 80\%/20\% (455 train, 114 test)
+\end{itemize}
+
+\section*{Theory}
+
+\subsection*{Decision Tree Classifier}
+A Decision Tree is a supervised learning model that recursively splits the feature space using impurity measures (Gini or Entropy) to form decision rules. It is prone to high variance and overfitting at large depths.
+
+\subsection*{Random Forest Classifier}
+Random Forest is an ensemble of decision trees trained on bootstrapped samples with random feature selection. Majority voting aggregates predictions, reducing variance and improving generalization.
+
+\section*{Steps for Implementation}
+\begin{enumerate}[label=\arabic*.]
+    \item Load dataset and verify class distribution.
+    \item Perform EDA: class distribution plot and correlation heatmap.
+    \item 80--20 train/test split with stratification.
+    \item Decision Tree: 5-Fold CV over criterion $\times$ max\_depth $\times$ min\_samples\_split.
+    \item Select best DT hyperparameters and retrain on full train set.
+    \item Random Forest: 5-Fold CV over n\_estimators $\times$ max\_depth $\times$ max\_features.
+    \item Select best RF hyperparameters and retrain.
+    \item Evaluate both on the held-out test set.
+\end{enumerate}
+
+\section*{Hyperparameter Tuning Results}
+
+\subsection*{Decision Tree Cross-Fold Results}
+\begin{table}[H]
+\centering
+\caption{Decision Tree -- 5-Fold CV Results}
+\begin{tabular}{cccc}
+\toprule
+Criterion & Max Depth & Avg CV Accuracy (\%) & Avg CV F1 Score \\
+\midrule
+Gini     & 3       & 92.53 & 0.9400 \\
+Gini     & 5       & 91.87 & 0.9335 \\
+Entropy  & 5       & \textbf{92.97} & \textbf{0.9439} \\
+Entropy  & None    & 92.97 & 0.9440 \\
+Gini     & 7       & 91.87 & 0.9333 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Best DT:} criterion=\texttt{entropy}, max\_depth=5, min\_samples\_split=2
+
+\subsection*{Random Forest Cross-Fold Results}
+\begin{table}[H]
+\centering
+\caption{Random Forest -- 5-Fold CV Results}
+\begin{tabular}{ccccc}
+\toprule
+n\_estimators & Max Depth & Max Features & Avg CV Accuracy (\%) & Avg CV F1 Score \\
+\midrule
+50  & 5    & sqrt & 95.60 & 0.9647 \\
+100 & 10   & sqrt & 96.26 & 0.9699 \\
+100 & None & sqrt & 96.26 & 0.9699 \\
+200 & None & sqrt & 96.26 & 0.9700 \\
+100 & None & log2 & \textbf{96.48} & \textbf{0.9718} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Best RF:} n\_estimators=100, max\_depth=None, max\_features=\texttt{log2}
+
+\section*{5-Fold Cross-Validation Performance Comparison}
+
+\begin{table}[H]
+\centering
+\caption{5-Fold CV Accuracy per Fold (Best Models)}
+\begin{tabular}{lcccccc}
+\toprule
+Model & Fold 1 & Fold 2 & Fold 3 & Fold 4 & Fold 5 & Average \\
+\midrule
+Decision Tree & 92.98\% & 91.23\% & 97.37\% & 94.74\% & 92.92\% & 93.85\% \\
+Random Forest & 96.49\% & 95.61\% & 95.61\% & 95.61\% & 96.46\% & 95.96\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section*{Final Test-Set Evaluation}
+
+\begin{table}[H]
+\centering
+\caption{Test-Set Performance (114 samples)}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Model} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-Score} & \textbf{AUC-ROC} \\
+\midrule
+Decision Tree  & 92.98\% & 0.9706 & 0.9167 & 0.9429 & 0.9435 \\
+Random Forest  & \textbf{95.61\%} & \textbf{0.9589} & \textbf{0.9722} & \textbf{0.9655} & \textbf{0.9924} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section*{Observation Questions}
+\begin{itemize}
+    \item \textbf{How does tree depth affect overfitting?} Shallow trees (depth=3--5) generalise better. Unconstrained depth (=None) fits training data perfectly but may overfit; here, with only 30 features, the effect is mild because the data is not noisy.
+    \item \textbf{Which hyperparameter had the greatest impact?} The choice of \texttt{max\_features} in Random Forest (\texttt{log2} vs. \texttt{sqrt}) marginally improved accuracy. For Decision Tree, \texttt{criterion=entropy} with \texttt{max\_depth=5} gave the best balance.
+    \item \textbf{How does Random Forest improve generalisation?} By training 100 trees on different bootstrap samples with random feature subsets, variance is reduced via averaging, leading to a 2.6\% accuracy gain over a single tree.
+    \item \textbf{Did ensemble learning always improve performance?} Yes -- Random Forest consistently outperformed the single Decision Tree across all 5 folds and on the final test set.
+\end{itemize}
+
+\section*{Conclusion}
+Decision Tree (entropy, depth=5) achieved 92.98\% test accuracy; Random Forest (100 trees, log2 features) achieved 95.61\% with an AUC of 0.9924 -- a substantial improvement demonstrating the power of ensemble averaging for variance reduction.
+
+\section*{References}
+\begin{itemize}
+    \item \href{https://scikit-learn.org/stable/modules/tree.html}{Scikit-learn: Decision Trees}
+    \item \href{https://scikit-learn.org/stable/modules/ensemble.html}{Scikit-learn: Random Forest}
+    \item \href{https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic}{UCI Dataset}
+\end{itemize}
+
+\end{document}

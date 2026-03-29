@@ -1,0 +1,272 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage{titlesec}
+
+\titleformat{\section}{\large\bfseries}{\thesection.}{1em}{}
+
+\begin{document}
+
+\begin{center}
+    \Large \textbf{Sri Sivasubramaniya Nadar College of Engineering, Chennai} \\
+    \large (An Autonomous Institution affiliated to Anna University) \\
+    \vspace{0.3cm}
+\end{center}
+
+\begin{table}[h!]
+\renewcommand{\arraystretch}{1.5}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|cll|}
+\hline
+\textbf{Degree \& Branch} & \multicolumn{1}{c|}{B.E Computer Science \& Engineering} & \textbf{Semester} & VI \\ \hline
+\textbf{Subject Code \& Name} & \multicolumn{3}{c|}{UCS2612 -- Machine Learning Laboratory} \\ \hline
+\textbf{Academic Year} & \multicolumn{1}{c|}{2025--2026 (Even)} & \textbf{Batch} & 2023--2027 \\ \hline
+\end{tabular}
+}
+\end{table}
+
+\begin{center}
+    \textbf{\Large Experiment 7}
+\end{center}
+
+\begin{center}
+    \textbf{Bagging, Boosting, and Stacked Ensemble Models}
+\end{center}
+
+%--------------------------------------------------
+
+\section*{Objective}
+\begin{itemize}
+    \item To understand ensemble learning strategies: Bagging, Boosting, and Stacking.
+    \item To implement Bagging and Boosting classifiers.
+    \item To build a Stacked Ensemble model using multiple base learners.
+    \item To compare ensemble models in terms of accuracy, stability, and generalization.
+    \item To analyze the effect of ensemble methods on bias and variance.
+\end{itemize}
+
+%--------------------------------------------------
+
+\section*{Dataset}
+\textbf{Wisconsin Diagnostic Breast Cancer Dataset}
+
+\begin{itemize}
+    \item Total samples: 569
+    \item Features: 30 numerical attributes
+    \item Target classes: Malignant (M) and Benign (B)
+\end{itemize}
+
+\textbf{Dataset Link:}  
+\href{https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic}{https://archive.ics.uci.edu}
+
+%--------------------------------------------------
+
+\section*{Theory}
+
+\subsection*{Bagging (Bootstrap Aggregation)}
+Bagging is an ensemble technique that trains multiple models on different bootstrap samples of the training data and aggregates their predictions.
+
+\textbf{Key Characteristics:}
+\begin{itemize}
+    \item Reduces variance
+    \item Suitable for high-variance models
+    \item Independent model training
+\end{itemize}
+
+\subsection*{Boosting}
+Boosting is an ensemble method where models are trained sequentially, and each new model focuses on correcting the errors made by previous models.
+
+\textbf{Key Characteristics:}
+\begin{itemize}
+    \item Reduces bias
+    \item Sequential learning
+    \item Emphasizes difficult samples
+\end{itemize}
+
+Common boosting algorithms include AdaBoost and Gradient Boosting.
+
+\subsection*{Stacked Ensemble (Stacking)}
+Stacking combines multiple heterogeneous base models and trains a meta-learner to optimally combine their predictions.
+
+\textbf{Key Characteristics:}
+\begin{itemize}
+    \item Uses diverse base learners
+    \item Meta-model learns optimal combination
+    \item Often achieves superior performance
+\end{itemize}
+
+%--------------------------------------------------
+
+\section*{Steps for Implementation}
+
+\begin{enumerate}[label=\arabic*.]
+    \item Load and preprocess the dataset.
+    \item Perform Exploratory Data Analysis (EDA).
+    \item Split the dataset into training and testing sets (80--20).
+    \item Implement a Bagging classifier using a base estimator.
+    \item Implement Boosting classifiers (AdaBoost and/or Gradient Boosting).
+    \item Construct a Stacked Ensemble using multiple base models.
+    \item Define hyperparameter search spaces for each ensemble model.
+    \item Select hyperparameters using 5-fold cross-validation.
+    \item Evaluate all models using standard performance metrics.
+    \item Compare results and analyze bias--variance behavior.
+\end{enumerate}
+
+%--------------------------------------------------
+
+\section*{Ensemble Models Used}
+
+\subsection*{Bagging}
+\begin{itemize}
+    \item Base Estimator: Decision Tree
+    \item Number of estimators
+    \item Sampling strategy
+\end{itemize}
+
+\subsection*{Boosting}
+\begin{itemize}
+    \item AdaBoost
+    \item Gradient Boosting
+\end{itemize}
+
+\subsection*{Stacked Ensemble}
+\begin{itemize}
+    \item Base Models: SVM, Na\"ive Bayes, Decision Tree
+    \item Meta Learner: Logistic Regression
+\end{itemize}
+
+%--------------------------------------------------
+
+\section*{Hyperparameters to be Explored}
+
+\subsection*{Bagging}
+\begin{itemize}
+    \item \texttt{n\_estimators}
+    \item \texttt{max\_samples}
+    \item \texttt{max\_features}
+\end{itemize}
+
+\subsection*{Boosting}
+\begin{itemize}
+    \item \texttt{n\_estimators}
+    \item \texttt{learning\_rate}
+    \item \texttt{max\_depth}
+\end{itemize}
+
+\subsection*{Stacked Ensemble}
+\begin{itemize}
+    \item Choice of base models
+    \item Final estimator
+\end{itemize}
+
+%--------------------------------------------------
+
+\section*{Hyperparameter Evaluation Results}
+
+\subsection*{Bagging Results}
+\begin{table}[h!]
+\centering
+\caption{Bagging Hyperparameter Evaluation}
+\begin{tabular}{cccc}
+\toprule
+n\_estimators & max\_samples & Avg CV Accuracy (\%) & Avg CV F1 Score \\
+\midrule
+ &  &  &  \\
+ &  &  &  \\
+ &  &  &  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{Boosting Results}
+\begin{table}[h!]
+\centering
+\caption{Boosting Hyperparameter Evaluation}
+\begin{tabular}{cccc}
+\toprule
+n\_estimators & learning\_rate & Avg CV Accuracy (\%) & Avg CV F1 Score \\
+\midrule
+ &  &  &  \\
+ &  &  &  \\
+ &  &  &  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{Stacked Ensemble Results}
+\begin{table}[h!]
+\centering
+\caption{Stacked Ensemble Evaluation}
+\begin{tabular}{lccc}
+\toprule
+Base Models & Meta Learner & Avg CV Accuracy (\%) & Avg CV F1 Score \\
+\midrule
+ &  &  &  \\
+ &  &  &  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%--------------------------------------------------
+
+\section*{Performance Comparison}
+
+\begin{table}[h!]
+\centering
+\caption{Performance Comparison of Ensemble Models}
+\begin{tabular}{lcccc}
+\toprule
+Model & Accuracy (\%) & Precision & Recall & F1 Score \\
+\midrule
+Bagging &  &  &  &  \\
+Boosting &  &  &  &  \\
+Stacked Ensemble &  &  &  &  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%--------------------------------------------------
+
+\section*{Evaluation Metrics}
+\begin{itemize}
+    \item Accuracy
+    \item Precision
+    \item Recall
+    \item F1-score
+    \item Confusion Matrix
+    \item ROC Curve and AUC
+\end{itemize}
+
+%--------------------------------------------------
+
+\section*{Observation Questions}
+\begin{itemize}
+    \item How does Bagging reduce variance?
+    \item How does Boosting address model bias?
+    \item Why does stacking benefit from heterogeneous models?
+    \item Which ensemble method performed best and why?
+\end{itemize}
+
+%--------------------------------------------------
+
+\section*{Conclusion}
+Bagging, Boosting, and Stacked Ensemble models were implemented and evaluated.  
+The experiment demonstrates how different ensemble strategies improve predictive performance and generalization compared to individual models.
+
+%--------------------------------------------------
+
+\section*{References}
+\begin{itemize}
+    \item \href{https://scikit-learn.org/stable/modules/ensemble.html}{Scikit-learn: Ensemble Methods}
+    \item \href{https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.BaggingClassifier.html}{Bagging Classifier}
+    \item \href{https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic}{UCI Dataset}
+\end{itemize}
+
+\end{document}

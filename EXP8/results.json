@@ -1,0 +1,32 @@
+{
+  "pca_n_components": 7,
+  "pca_explained_variance_pct": 95.9,
+  "regression": {
+    "LinearRegression": {
+      "mse_nopca": 26.2338,
+      "r2_nopca": 0.7479,
+      "mse_pca": 26.2251,
+      "r2_pca": 0.7481
+    },
+    "RandomForest": {
+      "mse_nopca": 29.0245,
+      "r2_nopca": 0.7215,
+      "mse_pca": 28.9563,
+      "r2_pca": 0.7222
+    }
+  },
+  "classification": {
+    "LogisticRegression": {
+      "acc_nopca": 0.746,
+      "f1_nopca": 0.7437,
+      "acc_pca": 0.746,
+      "f1_pca": 0.7438
+    },
+    "SVM": {
+      "acc_nopca": 0.739,
+      "f1_nopca": 0.7324,
+      "acc_pca": 0.734,
+      "f1_pca": 0.7264
+    }
+  }
+}

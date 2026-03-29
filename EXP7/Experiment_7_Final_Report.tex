@@ -1,0 +1,171 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage{titlesec}
+\usepackage{float}
+
+\titleformat{\section}{\large\bfseries}{\thesection.}{1em}{}
+
+\begin{document}
+
+\begin{center}
+    \Large \textbf{Sri Sivasubramaniya Nadar College of Engineering, Chennai} \\
+    \large (An Autonomous Institution affiliated to Anna University) \\
+    \vspace{0.3cm}
+\end{center}
+
+\begin{table}[h!]
+\renewcommand{\arraystretch}{1.5}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|cll|}
+\hline
+\textbf{Degree \& Branch} & \multicolumn{1}{c|}{B.E Computer Science \& Engineering} & \textbf{Semester} & VI \\ \hline
+\textbf{Subject Code \& Name} & \multicolumn{3}{c|}{UCS2612 -- Machine Learning Laboratory} \\ \hline
+\textbf{Academic Year} & \multicolumn{1}{c|}{2025--2026 (Even)} & \textbf{Batch} & 2023--2027 \\ \hline
+\textbf{Name} & \multicolumn{1}{c|}{Mehanth T} & \textbf{Register No.} & 3122235001080 \\ \hline
+\end{tabular}
+}
+\end{table}
+
+\begin{center}
+    \textbf{\Large Experiment 7}
+\end{center}
+
+\begin{center}
+    \textbf{Bagging, Boosting, and Stacked Ensemble Models}
+\end{center}
+
+\section*{Objective}
+\begin{itemize}
+    \item To understand ensemble learning strategies: Bagging, Boosting, and Stacking.
+    \item To implement Bagging and Boosting classifiers.
+    \item To build a Stacked Ensemble model using multiple base learners.
+    \item To compare ensemble models in terms of accuracy, stability, and generalisation.
+    \item To analyse the effect of ensemble methods on bias and variance.
+\end{itemize}
+
+\section*{Dataset}
+\textbf{Wisconsin Diagnostic Breast Cancer Dataset} (loaded from \texttt{sklearn.datasets})
+\begin{itemize}
+    \item Total samples: 569 (357 Benign, 212 Malignant)
+    \item Features: 30 numerical attributes
+    \item Train/Test split: 80\%/20\% with StandardScaler applied
+\end{itemize}
+
+\section*{Theory}
+
+\subsection*{Bagging (Bootstrap Aggregation)}
+Trains multiple models on different bootstrap samples and aggregates predictions. Reduces variance; each model is trained independently.
+
+\subsection*{Boosting (AdaBoost / Gradient Boosting)}
+Models are trained \emph{sequentially}; each new model corrects errors of previous ones. Reduces bias; emphasises misclassified samples.
+
+\subsection*{Stacked Ensemble (Stacking)}
+Combines heterogeneous base models (SVM, Naive Bayes, Decision Tree) and trains a meta-learner (Logistic Regression) on their out-of-fold predictions. Often achieves superior performance by leveraging diverse strengths.
+
+\section*{Steps for Implementation}
+\begin{enumerate}[label=\arabic*.]
+    \item Load Breast Cancer dataset; apply StandardScaler.
+    \item 80--20 train/test split (stratified).
+    \item BaggingClassifier: 5-fold CV over \texttt{n\_estimators}, \texttt{max\_samples}.
+    \item AdaBoostClassifier: 5-fold CV over \texttt{n\_estimators}, \texttt{learning\_rate}.
+    \item GradientBoostingClassifier: 5-fold CV over \texttt{n\_estimators}, \texttt{learning\_rate}, \texttt{max\_depth}.
+    \item StackingClassifier (SVM + Naive Bayes + Decision Tree $\to$ Logistic Regression): 5-fold CV.
+    \item Evaluate all models on the held-out test set.
+\end{enumerate}
+
+\section*{Hyperparameter Evaluation Results}
+
+\subsection*{Bagging Results}
+\begin{table}[H]
+\centering
+\caption{Bagging -- 5-Fold CV (base: DecisionTree)}
+\begin{tabular}{cccc}
+\toprule
+n\_estimators & max\_samples & Avg CV Accuracy (\%) & Avg CV F1 Score \\
+\midrule
+10  & 0.8 & 94.73 & 0.9571 \\
+50  & 0.8 & 94.95 & 0.9593 \\
+\textbf{100} & \textbf{1.0} & \textbf{95.16} & \textbf{0.9609} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{Boosting Results}
+\begin{table}[H]
+\centering
+\caption{AdaBoost / GradientBoosting -- 5-Fold CV}
+\begin{tabular}{cccc}
+\toprule
+n\_estimators & learning\_rate & Avg CV Accuracy (\%) & Avg CV F1 Score \\
+\midrule
+\multicolumn{4}{l}{\textit{AdaBoost}} \\
+50  & 0.5 & 96.70 & 0.9737 \\
+\textbf{100} & \textbf{1.0} & \textbf{98.02} & \textbf{0.9844} \\
+200 & 0.1 & 97.14 & 0.9773 \\
+\midrule
+\multicolumn{4}{l}{\textit{Gradient Boosting}} \\
+100 & 0.1  & 95.16 & 0.9614 \\
+\textbf{200} & \textbf{0.05} & \textbf{96.04} & \textbf{0.9684} \\
+100 & 0.1  & 93.41 & 0.9470 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{Stacked Ensemble Results}
+\begin{table}[H]
+\centering
+\caption{Stacking -- 5-Fold CV}
+\begin{tabular}{lccc}
+\toprule
+Base Models & Meta Learner & Avg CV Accuracy (\%) & Avg CV F1 Score \\
+\midrule
+SVM + Naive Bayes + Decision Tree & Logistic Regression & 95.43 & 0.9664 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section*{Performance Comparison (Test Set)}
+
+\begin{table}[H]
+\centering
+\caption{Final Test-Set Performance (114 samples)}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Model} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-Score} & \textbf{AUC-ROC} \\
+\midrule
+Bagging (DT, 100)         & 93.86\% & 0.9452 & 0.9583 & 0.9517 & 0.9927 \\
+AdaBoost (100, lr=1.0)    & 95.61\% & 0.9467 & 0.9861 & 0.9660 & 0.9818 \\
+GradBoost (200, lr=0.05)  & 95.61\% & 0.9467 & 0.9861 & 0.9660 & 0.9911 \\
+Stacking (SVM+NB+DT)      & \textbf{97.37\%} & \textbf{0.9726} & \textbf{0.9861} & \textbf{0.9793} & \textbf{0.9937} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section*{Observation Questions}
+\begin{itemize}
+    \item \textbf{How does Bagging reduce variance?} By training 100 trees independently on random bootstrap samples (80--100\% of data), random fluctuations are averaged out, reducing the overall prediction variance compared to a single decision tree.
+    \item \textbf{How does Boosting address model bias?} Each successive model focuses on samples misclassified by previous models. AdaBoost re-weights samples, while Gradient Boosting fits the residual error, progressively reducing bias (AdaBoost CV accuracy reached 98\%).
+    \item \textbf{Why does stacking benefit from heterogeneous models?} SVM, Naive Bayes, and Decision Tree each capture different patterns. The Logistic Regression meta-learner learns the optimal combination, correcting weaknesses of each individual model.
+    \item \textbf{Which ensemble method performed best and why?} Stacking (97.37\% test accuracy) outperformed all others by combining diverse base classifiers. AdaBoost was the best single-algorithm boosting method (98\% CV accuracy), but its test accuracy matched Gradient Boosting at 95.61\%.
+\end{itemize}
+
+\section*{Conclusion}
+Stacking achieved the highest test accuracy (97.37\%) and AUC (0.9937), demonstrating that combining diverse base learners with a meta-learner is the most powerful ensemble strategy for this dataset. AdaBoost showed the highest cross-validation accuracy (98\%) among single-algorithm methods, confirming that sequential boosting effectively reduces model bias.
+
+\section*{References}
+\begin{itemize}
+    \item \href{https://scikit-learn.org/stable/modules/ensemble.html}{Scikit-learn: Ensemble Methods}
+    \item \href{https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.BaggingClassifier.html}{Bagging Classifier}
+    \item \href{https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic}{UCI Dataset}
+\end{itemize}
+
+\end{document}

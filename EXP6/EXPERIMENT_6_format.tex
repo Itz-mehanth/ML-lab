@@ -1,0 +1,229 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage{titlesec}
+
+\titleformat{\section}{\large\bfseries}{\thesection.}{1em}{}
+
+\begin{document}
+
+\begin{center}
+    \Large \textbf{Sri Sivasubramaniya Nadar College of Engineering, Chennai} \\
+    \large (An Autonomous Institution affiliated to Anna University) \\
+    \vspace{0.3cm}
+\end{center}
+
+\begin{table}[h!]
+\renewcommand{\arraystretch}{1.5}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|cll|}
+\hline
+\textbf{Degree \& Branch} & \multicolumn{1}{c|}{B.E Computer Science \& Engineering} & \textbf{Semester} & VI \\ \hline
+\textbf{Subject Code \& Name} & \multicolumn{3}{c|}{UCS2612 -- Machine Learning Laboratory} \\ \hline
+\textbf{Academic Year} & \multicolumn{1}{c|}{2025--2026 (Even)} & \textbf{Batch} & 2023--2027 \\ \hline
+\end{tabular}
+}
+\end{table}
+
+\begin{center}
+    \textbf{\Large Experiment 6}
+\end{center}
+
+\begin{center}
+    \textbf{Decision Tree and Random Forest: A Comparative Classification Study}
+\end{center}
+
+%--------------------------------------------------
+
+\section*{Objective}
+\begin{itemize}
+    \item To implement a \textbf{Decision Tree classifier}.
+    \item To extend the Decision Tree into a \textbf{Random Forest ensemble model}.
+    \item To study the impact of hyperparameters on overfitting and generalization.
+    \item To \textbf{select optimal hyperparameters using 5-Fold Cross-Validation}.
+    \item To compare single-tree and ensemble-tree models.
+\end{itemize}
+
+%--------------------------------------------------
+
+\section*{Dataset}
+\textbf{Wisconsin Diagnostic Breast Cancer Dataset}
+
+\begin{itemize}
+    \item Total samples: 569
+    \item Features: 30 numerical attributes
+    \item Target classes: Malignant (M) and Benign (B)
+\end{itemize}
+
+\textbf{Dataset Link:}  
+\href{https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic}{https://archive.ics.uci.edu}
+
+%--------------------------------------------------
+
+\section*{Theory}
+
+\subsection*{Decision Tree Classifier}
+A Decision Tree is a supervised learning model that recursively splits the feature space using impurity measures to form decision rules.
+
+\textbf{Key Concepts:}
+\begin{itemize}
+    \item Gini Index and Entropy
+    \item Tree depth and node splitting
+    \item Overfitting in deep trees
+\end{itemize}
+
+\textbf{Limitation:}  
+Decision Trees are prone to high variance and overfitting.
+
+\subsection*{Random Forest Classifier}
+Random Forest is an ensemble learning technique that combines multiple decision trees trained on bootstrapped samples.
+
+\textbf{Key Ideas:}
+\begin{itemize}
+    \item Bootstrap aggregation (bagging)
+    \item Random feature selection
+    \item Majority voting
+\end{itemize}
+
+\textbf{Advantage:}  
+Reduces variance and improves generalization compared to a single Decision Tree.
+
+%--------------------------------------------------
+
+\section*{Steps for Implementation}
+
+\begin{enumerate}[label=\arabic*.]
+    \item Load the dataset and encode class labels.
+    \item Perform Exploratory Data Analysis:
+    \begin{itemize}
+        \item Class distribution
+        \item Feature correlation analysis
+    \end{itemize}
+    \item Split the dataset into training and testing sets (80--20).
+    \item Train a Decision Tree classifier.
+    \item Define a hyperparameter search space.
+    \item Perform \textbf{5-Fold Cross-Validation} to evaluate each hyperparameter combination.
+    \item Select the hyperparameters that yield the best average cross-validation performance.
+    \item Train a Random Forest classifier.
+    \item Repeat cross-validation-based hyperparameter selection.
+    \item Compare both models using evaluation metrics.
+\end{enumerate}
+
+%--------------------------------------------------
+
+\section*{Hyperparameters to be Explored}
+
+\subsection*{Decision Tree}
+\begin{itemize}
+    \item \texttt{criterion}
+    \item \texttt{max\_depth}
+    \item \texttt{min\_samples\_split}
+    \item \texttt{min\_samples\_leaf}
+\end{itemize}
+
+\subsection*{Random Forest}
+\begin{itemize}
+    \item \texttt{n\_estimators}
+    \item \texttt{max\_depth}
+    \item \texttt{max\_features}
+    \item \texttt{bootstrap}
+\end{itemize}
+
+%--------------------------------------------------
+
+\section*{Hyperparameter Tuning Results}
+
+\subsection*{Decision Tree Cross-Fold Results}
+\begin{table}[h!]
+\centering
+\caption{Decision Tree Hyperparameter Evaluation using 5-Fold Cross-Validation}
+\begin{tabular}{cccc}
+\toprule
+Criterion & Max Depth & Avg CV Accuracy (\%) & Avg CV F1 Score \\
+\midrule
+ &  &  &  \\
+ &  &  &  \\
+ &  &  &  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{Random Forest Cross-Fold Results}
+\begin{table}[h!]
+\centering
+\caption{Random Forest Hyperparameter Evaluation using 5-Fold Cross-Validation}
+\begin{tabular}{ccccc}
+\toprule
+n\_estimators & Max Depth & Max Features & Avg CV Accuracy (\%) & Avg CV F1 Score \\
+\midrule
+ &  &  &  &  \\
+ &  &  &  &  \\
+ &  &  &  &  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%--------------------------------------------------
+
+\section*{5-Fold Cross-Validation Performance Comparison}
+
+\begin{table}[h!]
+\centering
+\caption{5-Fold Cross-Validation Accuracy Comparison}
+\begin{tabular}{lcccccc}
+\toprule
+Model & Fold 1 & Fold 2 & Fold 3 & Fold 4 & Fold 5 & Average \\
+\midrule
+Decision Tree &  &  &  &  &  &  \\
+Random Forest &  &  &  &  &  &  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%--------------------------------------------------
+
+\section*{Evaluation Metrics}
+\begin{itemize}
+    \item Accuracy
+    \item Precision
+    \item Recall
+    \item F1-score
+    \item Confusion Matrix
+    \item ROC Curve and AUC
+\end{itemize}
+
+%--------------------------------------------------
+
+\section*{Observation Questions}
+\begin{itemize}
+    \item How does tree depth affect overfitting in Decision Trees?
+    \item Which hyperparameter had the greatest impact on performance?
+    \item How does Random Forest improve generalization?
+    \item Did ensemble learning always improve performance? Why or why not?
+\end{itemize}
+
+%--------------------------------------------------
+
+\section*{Conclusion}
+Decision Tree and Random Forest models were implemented and evaluated using 5-fold cross-validation.  
+Hyperparameters were selected based on average cross-validation performance, ensuring robust generalization.  
+The results demonstrate that Random Forest reduces variance and improves stability compared to a single Decision Tree.
+
+%--------------------------------------------------
+
+\section*{References}
+\begin{itemize}
+    \item \href{https://scikit-learn.org/stable/modules/tree.html}{Scikit-learn: Decision Trees}
+    \item \href{https://scikit-learn.org/stable/modules/ensemble.html}{Scikit-learn: Random Forest}
+    \item \href{https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic}{UCI Dataset}
+\end{itemize}
+
+\end{document}

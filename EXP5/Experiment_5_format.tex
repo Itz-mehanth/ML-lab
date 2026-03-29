@@ -1,0 +1,201 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage{titlesec}
+
+\titleformat{\section}{\large\bfseries}{\thesection.}{1em}{}
+
+\begin{document}
+
+\begin{center}
+    \Large \textbf{Sri Sivasubramaniya Nadar College of Engineering, Chennai} \\
+    \large (An Autonomous Institution affiliated to Anna University) \\
+    \vspace{0.3cm}
+\end{center}
+
+\begin{table}[h!]
+\renewcommand{\arraystretch}{1.5}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|cll|}
+\hline
+\textbf{Degree \& Branch} & \multicolumn{1}{c|}{B.E Computer Science \& Engineering} & \textbf{Semester} & VI \\ \hline
+\textbf{Subject Code \& Name} & \multicolumn{3}{c|}{UCS2612 -- Machine Learning Laboratory} \\ \hline
+\textbf{Academic Year} & \multicolumn{1}{c|}{2025--2026 (Even)} & \textbf{Batch} & 2023--2027 \\ \hline
+\end{tabular}
+}
+\end{table}
+
+\begin{center}
+    \textbf{\Large Experiment 5}
+\end{center}
+
+\begin{center}
+    \textbf{Perceptron vs Multilayer Perceptron with Hyperparameter Tuning}
+\end{center}
+
+\section*{Objective}
+To implement and compare the performance of:
+\begin{itemize}
+    \item \textbf{Model A:} Single-Layer Perceptron Learning Algorithm (PLA)
+    \item \textbf{Model B:} Multilayer Perceptron (MLP) with hidden layers and nonlinear activation functions
+\end{itemize}
+
+Students must select, tune, and justify hyperparameters such as learning rate, activation function, optimizer, batch size, and number of hidden layers.
+
+\section*{Dataset}
+\textbf{English Handwritten Characters Dataset}
+
+\textbf{Download Link:}  
+\href{https://www.kaggle.com/datasets/dhruvildave/english-handwritten-characters-dataset}{https://www.kaggle.com/datasets/dhruvildave/english-handwritten-characters-dataset}
+
+\begin{itemize}
+    \item Total samples: 3,410
+    \item Number of classes: 62 (0--9, A--Z, a--z)
+    \item Image type: Grayscale
+\end{itemize}
+
+\section*{Theory}
+
+\subsection*{Perceptron Learning Algorithm (PLA)}
+The Perceptron is a linear classifier that uses a step activation function to separate data into two classes.
+
+\[
+w_{t+1} = w_t + \eta (y - \hat{y})x
+\]
+
+\begin{itemize}
+    \item Uses a step activation function
+    \item Converges only for linearly separable data
+    \item Extended to multi-class problems using One-vs-Rest strategy
+\end{itemize}
+
+\textbf{Limitation:} PLA cannot learn nonlinear decision boundaries required for handwritten character recognition.
+
+\subsection*{Multilayer Perceptron (MLP)}
+An MLP consists of one or more hidden layers with nonlinear activation functions.
+
+\begin{itemize}
+    \item Activation functions: ReLU, Sigmoid, Tanh
+    \item Loss function: Categorical Cross-Entropy
+    \item Optimizers: SGD, Adam
+    \item Learns nonlinear decision boundaries using backpropagation
+\end{itemize}
+
+\section*{Steps for Implementation}
+
+\begin{enumerate}[label=\arabic*.]
+    \item Preprocess the dataset (resize, flatten, normalize).
+    \item Implement \textbf{PLA} from scratch:
+    \begin{itemize}
+        \item Use step activation function.
+        \item Apply perceptron weight update rule.
+        \item Extend PLA to multi-class classification using One-vs-Rest.
+    \end{itemize}
+    \item Implement \textbf{MLP}:
+    \begin{itemize}
+        \item Select number of hidden layers and neurons.
+        \item Choose activation functions.
+        \item Train using backpropagation.
+    \end{itemize}
+    \item Perform \textbf{hyperparameter tuning}:
+    \begin{itemize}
+        \item Learning rate
+        \item Batch size
+        \item Optimizer
+        \item Activation function
+    \end{itemize}
+    \item Compare PLA and MLP using evaluation metrics.
+\end{enumerate}
+
+\section*{Performance Evaluation}
+
+\begin{table}[h!]
+\centering
+\caption{Overall Performance Comparison between PLA and MLP}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Model} & \textbf{Accuracy (\%)} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} \\
+\midrule
+PLA (OvR) &  &  &  &  \\
+MLP (Tuned) &  &  &  &  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\caption{Hyperparameter Tuning Results for MLP}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{cccccc}
+\toprule
+\textbf{Hidden Layers} & \textbf{Activation} & \textbf{Optimizer} & \textbf{Learning Rate} & \textbf{Batch Size} & \textbf{Accuracy (\%)} \\
+\midrule
+1 (128) & ReLU & SGD & 0.01 & 32 &  \\
+2 (256--128) & ReLU & Adam & 0.001 & 64 &  \\
+3 (512--256--128) & Tanh & Adam & 0.0005 & 64 &  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\caption{Training Convergence Comparison}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Model} & \textbf{Epochs} & \textbf{Final Training Loss} & \textbf{Convergence Behavior} \\
+\midrule
+PLA &  &  & Non-convergent \\
+MLP (Tuned) &  &  & Stable convergence \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section*{Evaluation Metrics}
+\begin{itemize}
+    \item Accuracy
+    \item Precision, Recall, F1-score
+    \item Confusion Matrix
+    \item ROC Curves (micro/macro average)
+    \item Training loss vs epochs curve
+\end{itemize}
+
+\section*{A/B Experiment Comparison}
+Students must clearly highlight:
+\begin{itemize}
+    \item Final tuned hyperparameters for MLP
+    \item Strengths and weaknesses of PLA vs MLP
+    \item Effect of hyperparameter tuning on convergence and accuracy
+\end{itemize}
+
+\section*{Observation Questions}
+\begin{itemize}
+    \item Why does PLA underperform compared to MLP?
+    \item Which hyperparameter had the most impact on MLP performance?
+    \item How does optimizer choice affect convergence?
+    \item Does increasing hidden layers always improve performance?
+    \item How can overfitting be detected and mitigated?
+\end{itemize}
+
+\section*{Report Checklist}
+\begin{itemize}
+    \item Aim and Objective
+    \item Dataset Description and Preprocessing
+    \item PLA Implementation and Results
+    \item MLP Implementation and Results
+    \item Hyperparameter Tuning Analysis
+    \item Performance Comparison Tables
+    \item Observations and Conclusion
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,178 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries}{\thesection.}{1em}{}
+
+\begin{document}
+
+\begin{center}
+    \Large \textbf{Sri Sivasubramaniya Nadar College of Engineering, Chennai} \\
+    \large (An autonomous Institution affiliated to Anna University) \\
+    \vspace{0.3cm}
+\end{center}
+
+\begin{table}[!h]
+\renewcommand{\arraystretch}{1.5}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|cll|}
+\hline
+\textbf{Degree \& Branch}     & \multicolumn{1}{c|}{BE Computer Science \& Engineering} & \multicolumn{1}{l|}{\textbf{Semester}} & VI \\
+\hline
+\textbf{Subject Code \& Name} & \multicolumn{3}{c|}{ Machine Learning  Laboratory} \\
+\hline
+\textbf{Academic Year}        & \multicolumn{1}{c|}{2025–2026 } & \textbf{Batch} & 2023–2027 \\
+\hline
+\end{tabular}
+}
+\end{table}
+
+\begin{center}
+    \textbf{Experiment 8: Clustering Human Activity Recognition Data using K-Means, DBSCAN, and Hierarchical Clustering}
+\end{center}
+
+\section*{Objective}
+To implement and analyze the performance of clustering algorithms on the Human Activity Recognition dataset:
+\begin{itemize}
+    \item \textbf{Model A:} K-Means Clustering.
+    \item \textbf{Model B:} DBSCAN (Density-Based Spatial Clustering of Applications with Noise).
+    \item \textbf{Model C:} Hierarchical Agglomerative Clustering (HAC).
+\end{itemize}
+Students must visualize and compare the clusters formed by each algorithm, report results, and analyze performance.
+
+\section*{Dataset}
+\textbf{Download:} \href{https://archive.ics.uci.edu/dataset/240/human+activity+recognition+using+smartphones}{Human Activity Recognition Using Smartphones Dataset}  
+
+- 30 volunteers (aged 19–48).  
+- 6 activities: WALKING, WALKING\_UPSTAIRS, WALKING\_DOWNSTAIRS, SITTING, STANDING, LAYING.  
+- Sensors: 3-axis accelerometer and gyroscope (50 Hz).  
+- Preprocessed into windows of 2.56s (128 readings/window) with feature extraction from time and frequency domain.  
+
+\section*{Theory}
+\subsection*{K-Means Clustering}
+- Objective: Partition data into $k$ clusters by minimizing within-cluster variance.  
+- Distance metric: Euclidean.  
+- Algorithm:
+\begin{enumerate}
+    \item Initialize $k$ centroids.
+    \item Assign points to nearest centroid.
+    \item Update centroids as mean of assigned points.
+    \item Repeat until convergence.
+\end{enumerate}
+
+\subsection*{Elbow Method for Choosing $k$}
+- Compute \textbf{Within-Cluster Sum of Squares (WCSS)} for different $k$ values.  
+- Plot $k$ vs. WCSS.  
+- The ``elbow point'' (where reduction in WCSS slows down) suggests the optimal $k$.  
+
+\begin{table}[!h]
+\centering
+\caption{K-Means Elbow Method Results}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Number of Clusters ($k$)} & \textbf{WCSS (Inertia)} & \textbf{Silhouette Score} \\
+\hline
+2 &  \_\_\_\_ & \_\_\_\_ \\
+3 &  \_\_\_\_ & \_\_\_\_ \\
+4 &  \_\_\_\_ & \_\_\_\_ \\
+5 &  \_\_\_\_ & \_\_\_\_ \\
+6 &  \_\_\_\_ & \_\_\_\_ \\
+7 &  \_\_\_\_ & \_\_\_\_ \\
+8 &  \_\_\_\_ & \_\_\_\_ \\
+\hline
+\end{tabular}
+\end{table}
+
+\textbf{Students must:}
+\begin{itemize}
+    \item Fill in the table above after running experiments.
+    \item Plot $k$ vs. WCSS (Elbow curve).
+    \item Plot $k$ vs. Silhouette Score.
+    \item Select and justify the best $k$.
+\end{itemize}
+
+\subsection*{DBSCAN}
+- Density-based clustering algorithm.  
+- Parameters: $\epsilon$ (neighborhood radius), $minPts$ (minimum points).  
+- Core points, border points, and noise are identified.  
+- Advantage: Can discover clusters of arbitrary shape and handle noise.
+
+\subsection*{Hierarchical Clustering}
+- Builds hierarchy of clusters using either:
+\begin{itemize}
+    \item Agglomerative (bottom-up merging).
+    \item Divisive (top-down splitting).
+\end{itemize}
+- Linkage criteria: Single, Complete, Average, Ward’s method.  
+- Represented by a dendrogram.
+
+\section*{Steps for Implementation}
+\begin{enumerate}[label=\arabic*.]
+    \item Load the dataset and preprocess:
+    \begin{itemize}
+        \item Handle missing values.
+        \item Encode categorical labels.
+        \item Apply normalization/standardization.
+    \end{itemize}
+    \item Perform exploratory data analysis (EDA):
+    \begin{itemize}
+        \item Visualize feature distributions.
+        \item Apply dimensionality reduction (PCA/t-SNE) for visualization.
+    \end{itemize}
+    \item Apply clustering algorithms:
+    \begin{itemize}
+        \item \textbf{K-Means:} Use Elbow method to choose $k$.
+        \item \textbf{DBSCAN:} Tune $\epsilon$ and $minPts$.
+        \item \textbf{Hierarchical:} Apply Agglomerative clustering with Ward’s linkage.
+    \end{itemize}
+    \item Visualize clusters in 2D using PCA/t-SNE.
+    \item Compare results with ground truth activity labels (although clustering is unsupervised).
+    \item Analyze performance using clustering metrics.
+\end{enumerate}
+
+\section*{Evaluation Metrics}
+\begin{itemize}
+    \item \textbf{Internal:} Silhouette Score, Davies–Bouldin Index, Calinski–Harabasz Index.
+    \item \textbf{External (w.r.t. true labels):} Adjusted Rand Index (ARI), Normalized Mutual Information (NMI).
+    \item Confusion matrix (optional, by mapping clusters to activities).
+\end{itemize}
+
+\section*{Graphs and Visualization}
+Students should produce:
+\begin{itemize}
+    \item Elbow curve: $k$ vs. WCSS.
+    \item Silhouette curve: $k$ vs. Silhouette Score.
+    \item Scatter plots of clusters (after PCA/t-SNE).
+    \item Dendrograms for hierarchical clustering.
+    \item Bar plots of evaluation metrics across algorithms.
+\end{itemize}
+
+\section*{Observation Questions}
+\begin{itemize}
+    \item Which algorithm produced the most meaningful clusters? Why?
+    \item How sensitive was K-Means to the choice of $k$?
+    \item Did DBSCAN detect noise or small clusters effectively?
+    \item How does linkage choice (single/complete/ward) affect hierarchical clustering?
+    \item Which internal metric best matched your visual intuition of cluster quality?
+\end{itemize}
+
+\section*{Report Checklist}
+\begin{itemize}
+    \item Aim and Objective
+    \item Preprocessing Steps
+    \item K-Means with Elbow Method Results
+    \item Clustering Implementation (K-Means, DBSCAN, Hierarchical)
+    \item Evaluation Metrics and Results
+    \item Graphs and Visualizations
+    \item Observations and Comparative Analysis
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,148 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{titlesec}
+\usepackage{float}
+\titleformat{\section}{\large\bfseries}{\thesection.}{1em}{}
+
+\begin{document}
+
+\begin{center}
+    \Large \textbf{Sri Sivasubramaniya Nadar College of Engineering, Chennai} \\
+    \large (An Autonomous Institution affiliated to Anna University) \\
+    \vspace{0.3cm}
+\end{center}
+
+\begin{table}[h!]
+\renewcommand{\arraystretch}{1.5}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|cll|}
+\hline
+\textbf{Degree \& Branch} & \multicolumn{1}{c|}{B.E Computer Science \& Engineering} & \textbf{Semester} & VI \\ \hline
+\textbf{Subject Code \& Name} & \multicolumn{3}{c|}{UCS2612 -- Machine Learning Laboratory} \\ \hline
+\textbf{Academic Year} & \multicolumn{1}{c|}{2025--2026 (Even)} & \textbf{Batch} & 2023--2027 \\ \hline
+\textbf{Name} & \multicolumn{1}{c|}{Mehanth T} & \textbf{Register No.} & 3122235001080 \\ \hline
+\end{tabular}
+}
+\end{table}
+
+\begin{center}
+    \textbf{\Large Experiment 8}
+\end{center}
+
+\begin{center}
+    \textbf{Effect of PCA on Regression and Classification Models}
+\end{center}
+
+\section*{Objective}
+To study the impact of \textbf{Principal Component Analysis (PCA)} on the performance of machine learning models.
+\begin{enumerate}[label=\alph*)]
+    \item Train models in the original feature space (Without PCA)
+    \item Train models in reduced feature space (With PCA)
+    \item Compare performance using 5-fold cross-validation
+\end{enumerate}
+
+\section*{Dataset}
+\textbf{Dataset: PCA\_Full\_Lab\_Dataset\_1000\_Samples.csv}
+
+\begin{itemize}
+    \item Total samples: 1000
+    \item Total features: 11 (Math, Physics, Chemistry, Biology, Total\_Science, Average\_Science, English, Computer\_Science, Sports\_Score, Attendance\_Percentage, Random\_Noise\_Feature)
+    \item \textbf{Regression Target:} Final\_Score\_Regression (continuous)
+    \item \textbf{Classification Target:} Performance\_Level\_Classification (High / Medium / Low)
+    \item Class distribution: High=202, Low=253, Medium=545
+    \item Missing values: None
+\end{itemize}
+
+\section*{Preprocessing Steps}
+\begin{enumerate}
+    \item No missing values found; no imputation required.
+    \item Encode classification target with LabelEncoder: Low=0, High=1, Medium=2.
+    \item Standardise all features using \texttt{StandardScaler} (zero mean, unit variance) -- \emph{critical before PCA}.
+    \item Evaluate using 5-fold cross-validation (KFold for regression, StratifiedKFold for classification).
+\end{enumerate}
+
+\section*{PCA Implementation}
+
+\begin{enumerate}
+    \item Apply PCA after standardisation.
+    \item Retain 95\% of explained variance (automatic component selection).
+    \item Plot Scree Plot showing cumulative variance vs.\ number of components.
+\end{enumerate}
+
+\begin{table}[H]
+\centering
+\caption{PCA Summary}
+\begin{tabular}{|c|c|c|}
+\hline
+Components Chosen & Explained Variance (\%) & Justification \\
+\hline
+7 out of 11 & 95.90\% & Retains 95\% variance threshold; removes 4 redundant/noisy dimensions \\
+\hline
+\end{tabular}
+\end{table}
+
+\section*{Regression Results}
+
+\begin{table}[H]
+\centering
+\caption{5-Fold CV Results -- Regression (1000 samples)}
+\begin{tabularx}{\textwidth}{|X|X|X|X|X|}
+\hline
+\textbf{Model} & \textbf{Metric} & \textbf{Fold Avg (No-PCA)} & \textbf{Fold Avg (With-PCA)} & \textbf{Observation} \\
+\hline
+Linear Regression & MSE & 26.2338 & 26.2251 & Negligible improvement \\
+Linear Regression & $R^2$ & 0.7479 & 0.7481 & Nearly identical \\
+Random Forest & MSE & 29.0245 & 28.9563 & Slight improvement \\
+Random Forest & $R^2$ & 0.7215 & 0.7222 & Minimal PCA effect \\
+\hline
+\end{tabularx}
+\end{table}
+
+\section*{Classification Results}
+
+\begin{table}[H]
+\centering
+\caption{5-Fold CV Results -- Classification (1000 samples)}
+\begin{tabularx}{\textwidth}{|X|X|X|X|X|}
+\hline
+\textbf{Model} & \textbf{Metric} & \textbf{Fold Avg (No-PCA)} & \textbf{Fold Avg (With-PCA)} & \textbf{Observation} \\
+\hline
+Logistic Regression & Accuracy & 0.7460 & 0.7460 & No change \\
+Logistic Regression & F1-score  & 0.7437 & 0.7438 & Identical \\
+SVM (RBF) & Accuracy & 0.7390 & 0.7340 & Slight decrease \\
+SVM (RBF) & F1-score  & 0.7324 & 0.7264 & Slight decrease \\
+\hline
+\end{tabularx}
+\end{table}
+
+\section*{Analysis Questions}
+\begin{enumerate}
+    \item \textbf{Did PCA improve Linear Regression?} Negligibly (MSE 26.2338 $\to$ 26.2251). Since features were already clean and correlated, PCA had little effect on a linear model.
+    \item \textbf{Did PCA significantly affect Random Forest?} No. Tree-based models handle high-dimensional and correlated features natively by splitting on the most informative features, so PCA provides minimal benefit.
+    \item \textbf{Which classification model benefited more from PCA?} Neither model benefited. Logistic Regression was unchanged; SVM slightly decreased (0.7390 $\to$ 0.7340), possibly because PCA's rotation changed the RBF kernel's distance calculations.
+    \item \textbf{Did PCA reduce variance across folds?} Marginally for regression (slight MSE reduction), but not significantly for classification in this dataset.
+    \item \textbf{Why do linear models benefit more from PCA?} Linear models struggle with multicollinearity; PCA decorrelates features and removes noise dimensions. However, with only 11 features and moderate correlation, the gain was minimal here.
+\end{enumerate}
+
+\section*{Expected Learning Outcome}
+\begin{itemize}
+    \item PCA reduces multicollinearity and noise dimensions (11 $\to$ 7 components).
+    \item PCA helps linear models more than tree-based models.
+    \item For this dataset, features were already informative; PCA offered negligible benefit.
+    \item Dimensionality reduction is most valuable with many correlated or noisy features.
+    \item Always standardise before PCA.
+\end{itemize}
+
+\section*{Final Conclusion}
+PCA compressed 11 features to 7 components retaining 95.90\% variance. For this dataset, PCA had negligible impact on all four models because the original features were already well-conditioned. PCA is most useful when: (1) features are highly correlated, (2) there are many noisy dimensions, or (3) computational cost reduction is critical. It is least necessary for tree-based models (Random Forest, Gradient Boosting) which handle correlated features inherently. The trade-off: PCA reduces dimensionality at the cost of interpretability -- components are linear combinations with no direct real-world meaning.
+
+\end{document}

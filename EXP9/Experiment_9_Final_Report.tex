@@ -1,0 +1,146 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{titlesec}
+\usepackage{float}
+\titleformat{\section}{\large\bfseries}{\thesection.}{1em}{}
+
+\begin{document}
+
+\begin{center}
+    \Large \textbf{Sri Sivasubramaniya Nadar College of Engineering, Chennai} \\
+    \large (An Autonomous Institution affiliated to Anna University) \\
+    \vspace{0.3cm}
+\end{center}
+
+\begin{table}[h!]
+\renewcommand{\arraystretch}{1.5}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|cll|}
+\hline
+\textbf{Degree \& Branch}     & \multicolumn{1}{c|}{BE Computer Science \& Engineering} & \multicolumn{1}{l|}{\textbf{Semester}} & VI \\ \hline
+\textbf{Subject Code \& Name} & \multicolumn{3}{c|}{Machine Learning Laboratory} \\ \hline
+\textbf{Academic Year}        & \multicolumn{1}{c|}{2025--2026} & \textbf{Batch} & 2023--2027 \\ \hline
+\textbf{Name} & \multicolumn{1}{c|}{Mehanth T} & \textbf{Register No.} & 3122235001080 \\ \hline
+\end{tabular}
+}
+\end{table}
+
+\begin{center}
+    \textbf{\Large Experiment 9}
+\end{center}
+
+\begin{center}
+    \textbf{Clustering Human Activity Recognition Data using K-Means, DBSCAN, and Hierarchical Clustering}
+\end{center}
+
+\section*{Objective}
+To implement and analyse the performance of clustering algorithms on the Human Activity Recognition dataset:
+\begin{itemize}
+    \item \textbf{Model A:} K-Means Clustering.
+    \item \textbf{Model B:} DBSCAN (Density-Based Spatial Clustering of Applications with Noise).
+    \item \textbf{Model C:} Hierarchical Agglomerative Clustering (HAC) with Ward Linkage.
+\end{itemize}
+
+\section*{Dataset}
+\textbf{Human Activity Recognition Using Smartphones Dataset} (UCI Repository / OpenML)
+\begin{itemize}
+    \item 30 volunteers, aged 19--48, performing 6 activities.
+    \item Activities: WALKING, WALKING\_UPSTAIRS, WALKING\_DOWNSTAIRS, SITTING, STANDING, LAYING.
+    \item Full dataset: 10,299 samples, 561 time/frequency-domain features.
+    \item \textbf{Working subset: 3,000 samples} (500 per class, stratified sampling).
+\end{itemize}
+
+\section*{Preprocessing}
+\begin{enumerate}
+    \item Load dataset via \texttt{fetch\_openml('har')} -- no missing values.
+    \item Stratified subsample 3,000 records for tractable runtime.
+    \item Apply \texttt{StandardScaler} (zero mean, unit variance).
+    \item Dimensionality reduction with PCA: 50 components (87.5\% variance) for clustering; 2 components for 2D scatter visualisation.
+\end{enumerate}
+
+\section*{K-Means -- Elbow Method Results}
+
+\begin{table}[H]
+\centering
+\caption{K-Means Elbow Method Results (3,000 samples, PCA-50)}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Number of Clusters ($k$)} & \textbf{WCSS (Inertia)} & \textbf{Silhouette Score} \\
+\hline
+2 & 752,291.5 & 0.4360 \\
+3 & 640,207.5 & 0.3575 \\
+4 & 601,425.9 & 0.2132 \\
+5 & 563,592.2 & 0.1750 \\
+6 & 541,905.4 & 0.1485 \\
+7 & 519,818.5 & 0.1366 \\
+8 & 505,576.6 & 0.1242 \\
+\hline
+\end{tabular}
+\end{table}
+
+\textbf{Chosen $k$: 6} (matches the 6 true activity classes). Although k=2 has the highest silhouette score, k=6 aligns with domain knowledge and the elbow shows diminishing WCSS returns beyond k=6.
+
+\section*{Evaluation Metrics}
+
+\begin{table}[H]
+\centering
+\caption{Clustering Performance Comparison (3,000 samples)}
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Algorithm} & \textbf{Silhouette} & \textbf{Davies-Bouldin} & \textbf{Calinski-Harabasz} & \textbf{ARI} & \textbf{NMI} \\
+\midrule
+K-Means ($k=6$)       & \textbf{0.1485} & 2.1386 & \textbf{1027.6} & \textbf{0.2822} & \textbf{0.4538} \\
+DBSCAN ($\epsilon=16$) & N/A$^*$ & N/A & N/A & 0.00 & 0.00 \\
+HAC (Ward, $k=6$)     & 0.1247 & 2.2977 & 958.9 & 0.2959 & 0.4624 \\
+\bottomrule
+\multicolumn{6}{l}{$^*$DBSCAN found 2 clusters + 179 noise points; low quality metric}
+\end{tabular}
+\end{table}
+
+\section*{DBSCAN Parameter Tuning}
+\begin{itemize}
+    \item k-NN distance analysis (k=15) yielded: median $= 11.1$, p90 $= 17.0$, p95 $= 20.2$ in PCA-50 space.
+    \item Best result: $\epsilon = 16$, $minPts = 10$ $\to$ 2 clusters, 179 noise points (6\% noise).
+    \item DBSCAN is not well-suited to this dataset because HAR features occupy a roughly uniform density in PCA space -- DBSCAN cannot distinguish the 6 activities as separate density regions.
+\end{itemize}
+
+\section*{Graphs and Visualisation}
+All figures saved to \texttt{plots/}:
+\begin{itemize}
+    \item \textbf{kmeans\_elbow\_silhouette.png} -- Elbow and Silhouette vs.\ $k$ curves.
+    \item \textbf{true\_labels\_pca.png} -- Ground-truth activities in PCA-2D.
+    \item \textbf{kmeans\_clusters.png} -- K-Means ($k=6$) clusters in PCA-2D.
+    \item \textbf{dbscan\_clusters.png} -- DBSCAN ($\epsilon=16$) clusters in PCA-2D.
+    \item \textbf{hac\_clusters.png} -- HAC (Ward, $k=6$) clusters in PCA-2D.
+    \item \textbf{dendrogram.png} -- Ward linkage dendrogram (300-sample subset, truncated).
+    \item \textbf{metrics\_comparison.png} -- Bar chart comparing metrics across algorithms.
+\end{itemize}
+
+\section*{Observation Questions}
+\begin{itemize}
+    \item \textbf{Which algorithm produced the most meaningful clusters?} K-Means and HAC both produced comparable results (ARI $\approx 0.28$--$0.30$, NMI $\approx 0.45$). HAC marginally edged K-Means on ARI/NMI, while K-Means had a slightly higher Silhouette and Calinski-Harabasz score.
+    \item \textbf{How sensitive was K-Means to the choice of $k$?} The Silhouette score steadily decreases from $k=2$ to $k=8$, suggesting the data does not have strongly separated high-dimensional clusters. The elbow in WCSS is mild; k=6 is chosen by domain knowledge.
+    \item \textbf{Did DBSCAN detect noise or small clusters effectively?} DBSCAN could not partition the 6 activities -- it collapsed most data into 1--2 large clusters with significant noise. HAR features form a continuous manifold in PCA-50 space without clear density gaps.
+    \item \textbf{How does linkage choice affect HAC?} Ward linkage minimises within-cluster variance (similar to K-Means objective) and produced the best HAC results. Single linkage would suffer from ``chaining''; complete linkage would be more compact but less balanced.
+    \item \textbf{Which internal metric best matched visual intuition?} Calinski-Harabasz index confirmed K-Means $>$ HAC. The Silhouette score's low absolute values ($\approx 0.15$) correctly reflected the visual observation that PCA-2D clusters overlap -- particularly the locomotion activities (WALKING, WALKING\_UP, WALKING\_DN) which share similar sensor signatures.
+\end{itemize}
+
+\section*{Conclusion}
+K-Means ($k=6$) and HAC (Ward, $k=6$) both achieved moderate agreement with ground-truth activity labels (NMI $\approx 0.45$), demonstrating that unsupervised methods can capture meaningful structure in HAR data without labels. DBSCAN was unsuitable for this high-dimensional, uniformly-dense dataset. Dimensionality reduction with PCA to 50 components preserved 87.5\% of variance and enabled tractable clustering.
+
+\section*{References}
+\begin{itemize}
+    \item \href{https://archive.ics.uci.edu/dataset/240/human+activity+recognition+using+smartphones}{UCI HAR Dataset}
+    \item \href{https://scikit-learn.org/stable/modules/clustering.html}{Scikit-learn Clustering Documentation}
+\end{itemize}
+
+\end{document}

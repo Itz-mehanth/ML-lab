@@ -1,0 +1,202 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries}{\thesection.}{1em}{}
+
+\title{\textbf{Experiment 8: Effect of PCA on Regression and Classification Models}}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Objective}
+
+To study the impact of \textbf{Principal Component Analysis (PCA)} 
+on the performance of machine learning models.
+
+Students must:
+
+\begin{enumerate}[label=\alph*)]
+    \item Train models in the original feature space (Without PCA)
+    \item Train models in reduced feature space (With PCA)
+    \item Compare performance using 5-fold cross-validation
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Dataset}
+
+Dataset: \textbf{PCA\_Full\_Lab\_Dataset\_1000\_Samples.csv}
+
+\textbf{Features:} Academic and performance-related attributes  
+\textbf{Regression Target:} Final\_Score\_Regression  
+\textbf{Classification Target:} Performance\_Level\_Classification  
+
+\textbf{Students must report:}
+\begin{itemize}
+    \item Number of samples and features
+    \item Target distribution
+    \item Preprocessing steps
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Preprocessing Steps}
+
+\begin{enumerate}
+    \item Handle missing values (if any)
+    \item Encode categorical target (for classification)
+    \item Standardize features (Very Important before PCA)
+    \item Split data using 5-fold cross-validation
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{PCA Implementation}
+
+\begin{enumerate}
+    \item Apply PCA after standardization
+    \item Choose:
+        \begin{itemize}
+            \item Either fixed number of components
+            \item Or retain 95\% explained variance
+        \end{itemize}
+    \item Plot Scree Plot
+    \item Record explained variance
+\end{enumerate}
+
+\begin{table}[h!]
+\centering
+\caption{PCA Summary}
+\begin{tabular}{|c|c|c|}
+\hline
+Components Chosen & Explained Variance (\%) & Justification \\
+\hline
+ &  &  \\
+\hline
+\end{tabular}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Regression Models}
+
+\subsection*{1. Linear Regression}
+
+\textbf{Evaluation Metric:}
+\begin{itemize}
+    \item Mean Squared Error (MSE)
+    \item $R^2$ Score
+\end{itemize}
+
+\subsection*{2. Random Forest Regressor}
+
+\textbf{Hyperparameters to Tune:}
+\begin{itemize}
+    \item Number of Trees
+    \item Maximum Depth
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Regression Results Table}
+
+\begin{table}[h!]
+\centering
+\caption{5-Fold CV Results – Regression}
+\begin{tabularx}{\textwidth}{|X|X|X|X|X|}
+\hline
+Model & Metric & Fold Avg (No-PCA) & Fold Avg (With-PCA) & Observation \\
+\hline
+Linear Regression & MSE &  &  &  \\
+Linear Regression & $R^2$ &  &  &  \\
+Random Forest & MSE &  &  &  \\
+Random Forest & $R^2$ &  &  &  \\
+\hline
+\end{tabularx}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Classification Models}
+
+\subsection*{1. Logistic Regression}
+
+\textbf{Hyperparameter:}
+\begin{itemize}
+    \item Regularization parameter $C$
+\end{itemize}
+
+\textbf{Metrics:}
+\begin{itemize}
+    \item Accuracy
+    \item F1-score
+\end{itemize}
+
+\subsection*{2. Support Vector Machine (SVM)}
+
+\textbf{Hyperparameters:}
+\begin{itemize}
+    \item Kernel (Linear / RBF)
+    \item C
+    \item Gamma
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Classification Results Table}
+
+\begin{table}[h!]
+\centering
+\caption{5-Fold CV Results – Classification}
+\begin{tabularx}{\textwidth}{|X|X|X|X|X|}
+\hline
+Model & Metric & Fold Avg (No-PCA) & Fold Avg (With-PCA) & Observation \\
+\hline
+Logistic Regression & Accuracy &  &  &  \\
+Logistic Regression & F1-score &  &  &  \\
+SVM & Accuracy &  &  &  \\
+SVM & F1-score &  &  &  \\
+\hline
+\end{tabularx}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Analysis Questions}
+
+\begin{enumerate}
+    \item Did PCA improve Linear Regression performance? Why?
+    \item Did PCA significantly affect Random Forest?
+    \item Which classification model benefited more from PCA?
+    \item Did PCA reduce variance across folds?
+    \item Why do linear models benefit more from PCA compared to ensemble models?
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Expected Learning Outcome}
+
+Students should conclude:
+
+\begin{itemize}
+    \item PCA reduces multicollinearity
+    \item PCA helps linear models more
+    \item Tree-based models may not benefit much
+    \item PCA reduces noise
+    \item Dimensionality reduction can improve generalization
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Final Conclusion (To be Written by Students)}
+
+Students must clearly state:
+
+\begin{itemize}
+    \item When PCA is useful
+    \item When PCA is not necessary
+    \item Trade-off between interpretability and performance
+\end{itemize}
+
+\end{document}

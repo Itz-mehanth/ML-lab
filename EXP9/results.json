@@ -1,0 +1,63 @@
+{
+  "dataset": {
+    "n_samples": 3000,
+    "n_features": 561,
+    "n_classes": 6
+  },
+  "pca50_variance_pct": 87.5,
+  "elbow": {
+    "k": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "wcss": [
+      752291.5,
+      640207.5,
+      601425.9,
+      563592.2,
+      541905.4,
+      519818.5,
+      505576.6
+    ],
+    "silhouette": [
+      0.436,
+      0.3575,
+      0.2132,
+      0.175,
+      0.1485,
+      0.1366,
+      0.1242
+    ]
+  },
+  "kmeans": {
+    "k": 6,
+    "silhouette": 0.1485,
+    "davies_bouldin": 2.1386,
+    "calinski_harabasz": 1027.6,
+    "ari": 0.2822,
+    "nmi": 0.4538
+  },
+  "dbscan": {
+    "eps": 16,
+    "min_samples": 10,
+    "n_clusters": 2,
+    "n_noise": 179,
+    "silhouette": 0.2879,
+    "ari": 0.0,
+    "nmi": 0.0077
+  },
+  "hac": {
+    "n_clusters": 6,
+    "linkage": "ward",
+    "silhouette": 0.1247,
+    "davies_bouldin": 2.2977,
+    "calinski_harabasz": 958.9,
+    "ari": 0.2959,
+    "nmi": 0.4624
+  }
+}
